@@ -5,15 +5,24 @@ import { DollarSign, Target, Star, AlertCircle, TrendingUp, ShoppingCart, Refres
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(new Date());
-  const [cardData, setCardData] = useState({
-    portfolioValue: 1315,
-    cardCount: 3,
-    alerts: [],
-    topPlayers: [],
-    investmentOpportunities: [],
-    portfolioAnalysis: {},
-    summary: {},
-    lastUpdated: null
+const [cardData, setCardData] = useState({
+  portfolioValue: 1315,
+  cardCount: 3,
+  alerts: [],
+  topPlayers: [],
+  investmentOpportunities: [],
+  portfolioAnalysis: {
+    highValueCards: 0,
+    rookieCardValue: 0,
+    legendCardValue: 0
+  },
+  summary: {
+    avgCardValue: 0,
+    totalAlerts: 0,
+    highPriorityAlerts: 0,
+    investmentOps: 0
+  },
+  lastUpdated: null
   });
   const [loading, setLoading] = useState(false);
 
