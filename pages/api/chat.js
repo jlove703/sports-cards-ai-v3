@@ -1,5 +1,7 @@
 // pages/api/chat.js
 export default async function handler(req, res) {
+  console.log('API called with:', req.method);
+  
   if (req.method !== 'POST') {
     return res.status(405).json({ message: 'Method not allowed' });
   }
@@ -14,35 +16,23 @@ export default async function handler(req, res) {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({
-        model: 'gpt-4',
+        model: 'gpt-4o-mini',
         messages: [
           {
             role: 'system',
-            content: `You are a sports card investment expert and AI assistant integrated into a sports card portfolio dashboard. You have access to the user's live portfolio data and should provide expert advice on sports card collecting, investing, and market trends.
-
-The user's current portfolio data:
-- Portfolio Value: $${cardData?.portfolioValue || 0}
-- Cards Tracked: ${cardData?.cardCount || 0}
-- Active Alerts: ${cardData?.alerts?.length || 0}
-- Investment Opportunities: ${cardData?.investmentOpportunities?.length || 0}
-
-Focus areas:
-- Redskins players: Jayden Daniels, Terry McLaurin, Sean Taylor
-- Orioles players: Adley Rutschman, Gunnar Henderson, Jackson Holliday, Colton Cowser, Jordan Westburg, Cal Ripken Jr
-
-Provide concise, actionable advice about sports card investing, market trends, player analysis, and portfolio optimization. Be enthusiastic but realistic about card values and investment potential.`
+            content: `You are a sports card investment expert. Portfolio: $${cardData?.portfolioValue || 0}, ${cardData?.cardCount || 0} cards tracked.`
           },
           {
             role: 'user',
             content: message
           }
         ],
-        max_tokens: 500,
-        temperature: 0.7,
+        max_tokens: 300,
       }),
     });
 
     const data = await response.json();
+    console.log('OpenAI response:', data);
 
     if (!response.ok) {
       throw new Error(data.error?.message || 'OpenAI API error');
@@ -55,7 +45,7 @@ Provide concise, actionable advice about sports card investing, market trends, p
   } catch (error) {
     console.error('Chat API error:', error);
     res.status(500).json({ 
-      message: 'Sorry, I\'m having trouble connecting right now. Please try again!' 
+      message: 'API Error: ' + error.message
     });
   }
 }
