@@ -2,27 +2,28 @@
 
 import React, { useState, useEffect } from 'react';
 import { DollarSign, Target, Star, AlertCircle, TrendingUp, ShoppingCart, RefreshCw } from 'lucide-react';
+import ChatWidget from '../components/ChatWidget';
 
 export default function Home() {
   const [currentTime, setCurrentTime] = useState(new Date());
-const [cardData, setCardData] = useState({
-  portfolioValue: 1315,
-  cardCount: 3,
-  alerts: [],
-  topPlayers: [],
-  investmentOpportunities: [],
-  portfolioAnalysis: {
-    highValueCards: 0,
-    rookieCardValue: 0,
-    legendCardValue: 0
-  },
-  summary: {
-    avgCardValue: 0,
-    totalAlerts: 0,
-    highPriorityAlerts: 0,
-    investmentOps: 0
-  },
-  lastUpdated: null
+  const [cardData, setCardData] = useState({
+    portfolioValue: 1315,
+    cardCount: 3,
+    alerts: [],
+    topPlayers: [],
+    investmentOpportunities: [],
+    portfolioAnalysis: {
+      highValueCards: 0,
+      rookieCardValue: 0,
+      legendCardValue: 0
+    },
+    summary: {
+      avgCardValue: 0,
+      totalAlerts: 0,
+      highPriorityAlerts: 0,
+      investmentOps: 0
+    },
+    lastUpdated: null
   });
   const [loading, setLoading] = useState(false);
 
@@ -301,6 +302,9 @@ const [cardData, setCardData] = useState({
         <div className="mt-8 text-center text-gray-500 text-sm">
           <p>Powered by N8N Workflows • Redskins & Orioles PC Intelligence • Live updates every 2 minutes</p>
         </div>
+
+        {/* Chat Widget */}
+        <ChatWidget cardData={cardData} />
       </div>
     </div>
   );
