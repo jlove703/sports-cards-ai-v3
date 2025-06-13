@@ -248,6 +248,89 @@ export default function Home() {
         {/* Footer */}
         <div className="mt-8 text-center text-gray-500 text-sm">
           <p>Powered by N8N Workflows • Live data updates every 2 minutes</p>
+          {/* Investment Intelligence Section */}
+        <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
+          {/* Investment Opportunities */}
+          <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/30">
+            <h3 className="text-xl font-semibold mb-4 flex items-center">
+              💎 Investment Opportunities
+            </h3>
+            <div className="space-y-3">
+              {cardData.investmentOpportunities && cardData.investmentOpportunities.length > 0 ? (
+                cardData.investmentOpportunities.map((opp, index) => (
+                  <div key={index} className="p-3 bg-green-500/10 border border-green-500/20 rounded-lg">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <p className="font-medium text-sm text-green-300">{opp.player}</p>
+                        <p className="text-xs text-gray-400">{opp.card}</p>
+                        <p className="text-xs text-green-400 mt-1">{opp.reasoning}</p>
+                      </div>
+                      <div className="text-right">
+                        <p className="text-xs text-green-300">${opp.currentPrice}</p>
+                        <p className="text-xs text-green-400">+{opp.upside}</p>
+                      </div>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="p-4 bg-gray-700/30 rounded-lg">
+                  <p className="text-gray-400">No opportunities detected</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Portfolio Analysis */}
+          <div className="bg-gradient-to-br from-blue-500/10 to-purple-500/10 rounded-xl p-6 border border-blue-500/30">
+            <h3 className="text-xl font-semibold mb-4 flex items-center">
+              📊 Portfolio Analysis
+            </h3>
+            <div className="space-y-4">
+              <div className="flex justify-between">
+                <span className="text-gray-400">Avg Card Value</span>
+                <span className="text-blue-300">${cardData.summary?.avgCardValue || 0}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">High Value Cards</span>
+                <span className="text-purple-300">{cardData.portfolioAnalysis?.highValueCards || 0}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Rookie Value</span>
+                <span className="text-green-300">${cardData.portfolioAnalysis?.rookieCardValue?.toLocaleString() || 0}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Legend Value</span>
+                <span className="text-yellow-300">${cardData.portfolioAnalysis?.legendCardValue?.toLocaleString() || 0}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* Alert Summary */}
+          <div className="bg-gradient-to-br from-orange-500/10 to-red-500/10 rounded-xl p-6 border border-orange-500/30">
+            <h3 className="text-xl font-semibold mb-4 flex items-center">
+              🚨 Alert Summary
+            </h3>
+            <div className="space-y-4">
+              <div className="flex justify-between">
+                <span className="text-gray-400">Total Alerts</span>
+                <span className="text-orange-300">{cardData.summary?.totalAlerts || 0}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">High Priority</span>
+                <span className="text-red-300">{cardData.summary?.highPriorityAlerts || 0}</span>
+              </div>
+              <div className="flex justify-between">
+                <span className="text-gray-400">Investment Ops</span>
+                <span className="text-green-300">{cardData.summary?.investmentOps || 0}</span>
+              </div>
+              <div className="p-3 bg-orange-500/10 border border-orange-500/20 rounded-lg mt-4">
+                <p className="text-xs text-orange-300">
+                  🔥 Your PC is being actively monitored for opportunities!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
         </div>
       </div>
     </div>
