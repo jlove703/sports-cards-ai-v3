@@ -1,5 +1,4 @@
-// pages/api/get-card-data.js (for Next.js)
-// or wherever your API routes go
+// pages/api/get-card-data.js
 
 let cardDataStore = {
   portfolioValue: 16750,
@@ -11,18 +10,62 @@ let cardDataStore = {
   activeAlerts: 2,
   urgentAlerts: 1,
   lastUpdated: new Date().toISOString(),
-  recentCards: [
+  
+  // MLB Performance Alerts
+  mlbAlerts: [
     {
-      name: "Patrick Mahomes Rookie PSA 10",
-      description: "2017 Panini Prizm",
-      price: "2,450",
+      player: "Vladimir Guerrero Jr.",
+      performance: "3 HRs in last 2 games (.450 BA this week)",
+      impact: "Rookie cards +25%",
       timestamp: "2 hours ago"
     },
     {
-      name: "Connor Bedard Young Guns",
-      description: "2023-24 Upper Deck",
-      price: "890",
-      timestamp: "4 hours ago"
+      player: "Ronald Acuna Jr.",
+      performance: "30-30 season milestone reached",
+      impact: "All cards trending up",
+      timestamp: "5 hours ago"
+    }
+  ],
+  
+  // Cards impacted by MLB performance
+  recentCards: [
+    {
+      name: "Vladimir Guerrero Jr. 2019 Topps Chrome Rookie",
+      description: "PSA 10",
+      mlbTrigger: "Hot streak: 3 HRs in 2 games",
+      price: "850",
+      priceChange: "+32%",
+      timestamp: "2 hours ago"
+    },
+    {
+      name: "Ronald Acuna Jr. 2018 Topps Update Rookie",
+      description: "PSA 9",
+      mlbTrigger: "30-30 season achieved",
+      price: "1,200",
+      priceChange: "+18%",
+      timestamp: "5 hours ago"
+    }
+  ],
+  
+  // Top MLB performers to watch
+  topPerformers: [
+    {
+      name: "Gunnar Henderson",
+      position: "SS",
+      stats: ".285 BA, 25 HRs, 75 RBIs",
+      cardOpportunity: "Rookie cards undervalued"
+    },
+    {
+      name: "Corbin Carroll",
+      position: "OF",
+      stats: "ROY leader, 20-20 season",
+      cardOpportunity: "All cards trending up"
+    },
+    {
+      name: "Gleyber Torres",
+      position: "2B",
+      stats: "Career month: .340 BA",
+      cardOpportunity: "Short-term spike potential"
     }
   ]
 };
