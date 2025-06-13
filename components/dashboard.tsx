@@ -30,7 +30,7 @@ export default function Dashboard() {
       setError(null);
       
       // This should match your N8N webhook endpoint
-      const response = await fetch('/api/get-card-data');
+      const response = await fetch('/api/card-data');
       
       if (!response.ok) {
         throw new Error(`HTTP error! status: ${response.status}`);
