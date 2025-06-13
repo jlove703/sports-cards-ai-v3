@@ -157,21 +157,63 @@ export default function Dashboard() {
           </div>
         </div>
 
-        {/* Recent Card Data */}
+        {/* MLB Performance Alerts */}
+        {cardData?.mlbAlerts && (
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 mb-8">
+            <h2 className="text-xl font-bold mb-4">🔥 MLB Performance Alerts</h2>
+            <div className="space-y-3">
+              {cardData.mlbAlerts.slice(0, 5).map((alert, index) => (
+                <div key={index} className="flex justify-between items-center p-3 bg-orange-900/20 border border-orange-600/30 rounded-lg">
+                  <div>
+                    <p className="font-medium text-orange-300">{alert.player || `Player ${index + 1}`}</p>
+                    <p className="text-sm text-gray-400">{alert.performance || 'No performance data'}</p>
+                  </div>
+                  <div className="text-right">
+                    <p className="text-orange-400 font-bold">{alert.impact || 'Card impact unknown'}</p>
+                    <p className="text-sm text-gray-400">{alert.timestamp || 'Unknown time'}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Recent Card Analysis */}
         {cardData?.recentCards && (
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 mb-8">
-            <h2 className="text-xl font-bold mb-4">Recent Card Analysis</h2>
+            <h2 className="text-xl font-bold mb-4">⚾ Cards Impacted by MLB Performance</h2>
             <div className="space-y-3">
               {cardData.recentCards.slice(0, 5).map((card, index) => (
                 <div key={index} className="flex justify-between items-center p-3 bg-gray-700/30 rounded-lg">
                   <div>
                     <p className="font-medium">{card.name || `Card ${index + 1}`}</p>
-                    <p className="text-sm text-gray-400">{card.description || 'No description'}</p>
+                    <p className="text-sm text-gray-400">{card.mlbTrigger || card.description || 'No MLB trigger data'}</p>
                   </div>
                   <div className="text-right">
-                    <p className="text-green-400 font-bold">${card.price || 'N/A'}</p>
+                    <p className={`font-bold ${card.priceChange?.startsWith('+') ? 'text-green-400' : card.priceChange?.startsWith('-') ? 'text-red-400' : 'text-white'}`}>
+                      ${card.price || 'N/A'} <span className="text-sm">({card.priceChange || '0%'})</span>
+                    </p>
                     <p className="text-sm text-gray-400">{card.timestamp || 'Unknown time'}</p>
                   </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {/* Top MLB Performers */}
+        {cardData?.topPerformers && (
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50 mb-8">
+            <h2 className="text-xl font-bold mb-4">🏆 Top MLB Performers (Card Opportunities)</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+              {cardData.topPerformers.slice(0, 6).map((player, index) => (
+                <div key={index} className="p-4 bg-blue-900/20 border border-blue-600/30 rounded-lg">
+                  <div className="flex justify-between items-start mb-2">
+                    <p className="font-medium text-blue-300">{player.name || `Player ${index + 1}`}</p>
+                    <span className="text-xs bg-blue-600 px-2 py-1 rounded">{player.position || 'Unknown'}</span>
+                  </div>
+                  <p className="text-sm text-gray-400 mb-2">{player.stats || 'No stats available'}</p>
+                  <p className="text-green-400 text-sm font-medium">{player.cardOpportunity || 'Card opportunity unknown'}</p>
                 </div>
               ))}
             </div>
