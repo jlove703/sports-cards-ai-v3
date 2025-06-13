@@ -10,6 +10,9 @@ export default function Home() {
     cardCount: 3,
     alerts: [],
     topPlayers: [],
+    investmentOpportunities: [],
+    portfolioAnalysis: {},
+    summary: {},
     lastUpdated: null
   });
   const [loading, setLoading] = useState(false);
@@ -80,7 +83,7 @@ export default function Home() {
             </div>
             <div className="text-right">
               <p className="text-gray-300">Last updated: {cardData.lastUpdated ? new Date(cardData.lastUpdated).toLocaleTimeString() : 'Never'}</p>
-              <p className="text-sm text-gray-400">Data from N8N workflow</p>
+              <p className="text-sm text-gray-400">Redskins & Orioles PC Tracker</p>
             </div>
           </div>
         </div>
@@ -112,9 +115,9 @@ export default function Home() {
           <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-gray-400 text-sm">Cool Factor</p>
-                <p className="text-2xl font-bold text-purple-400">9.8/10</p>
-                <p className="text-sm text-purple-300">Redskins + O's!</p>
+                <p className="text-gray-400 text-sm">Investment Ops</p>
+                <p className="text-2xl font-bold text-purple-400">{cardData.summary?.investmentOps || 0}</p>
+                <p className="text-sm text-purple-300">Opportunities found</p>
               </div>
               <Star className="w-8 h-8 text-purple-400" />
             </div>
@@ -132,123 +135,7 @@ export default function Home() {
           </div>
         </div>
 
-        {/* Live Data Sections */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Live Alerts from N8N */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
-            <h3 className="text-xl font-semibold mb-4 flex items-center">
-              <AlertCircle className="w-5 h-5 mr-2 text-yellow-400" />
-              Live N8N Alerts
-            </h3>
-            <div className="space-y-4">
-              {cardData.alerts && cardData.alerts.length > 0 ? (
-                cardData.alerts.map((alert, index) => (
-                  <div key={index} className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                    <div className="flex items-start justify-between">
-                      <div className="flex-1">
-                        <p className="font-medium text-sm text-yellow-300">{alert.message}</p>
-                        <p className="text-xs text-gray-400 mt-1">Player: {alert.player}</p>
-                      </div>
-                      <span className="px-2 py-1 rounded text-xs font-semibold bg-green-500/20 text-green-300">
-                        Live Alert
-                      </span>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="p-4 bg-gray-700/30 rounded-lg">
-                  <p className="text-gray-400">No active alerts</p>
-                </div>
-              )}
-            </div>
-          </div>
-
-          {/* Top Players from N8N */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
-            <h3 className="text-xl font-semibold mb-4 flex items-center">
-              <TrendingUp className="w-5 h-5 mr-2 text-green-400" />
-              Your Top Players
-            </h3>
-            <div className="space-y-4">
-              {cardData.topPlayers && cardData.topPlayers.length > 0 ? (
-                cardData.topPlayers.map(([player, count], index) => (
-                  <div key={index} className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
-                    <div className="flex-1">
-                      <p className="font-medium text-sm">{player}</p>
-                      <p className="text-xs text-gray-400">From N8N workflow</p>
-                    </div>
-                    <div className="flex items-center text-green-400">
-                      <span className="font-semibold">{count} cards</span>
-                    </div>
-                  </div>
-                ))
-              ) : (
-                <div className="p-4 bg-gray-700/30 rounded-lg">
-                  <p className="text-gray-400">No player data available</p>
-                </div>
-              )}
-            </div>
-          </div>
-        </div>
-
-        {/* Static Mock Data Section */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
-          {/* Mock Top Movers */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
-            <h3 className="text-xl font-semibold mb-4 flex items-center">
-              <TrendingUp className="w-5 h-5 mr-2 text-green-400" />
-              Top Movers (24h)
-            </h3>
-            <div className="space-y-4">
-              <div className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
-                <div className="flex-1">
-                  <p className="font-medium text-sm">Connor Bedard RC PSA 10</p>
-                  <p className="text-xs text-gray-400">$2,850</p>
-                </div>
-                <div className="flex items-center text-green-400">
-                  <TrendingUp className="w-4 h-4 mr-1" />
-                  <span className="font-semibold">+15.5%</span>
-                </div>
-              </div>
-              <div className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
-                <div className="flex-1">
-                  <p className="font-medium text-sm">Victor Wembanyama RC BGS 9.5</p>
-                  <p className="text-xs text-gray-400">$1,900</p>
-                </div>
-                <div className="flex items-center text-green-400">
-                  <TrendingUp className="w-4 h-4 mr-1" />
-                  <span className="font-semibold">+12.3%</span>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* Mock Buy Alerts */}
-          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
-            <h3 className="text-xl font-semibold mb-4 flex items-center">
-              <ShoppingCart className="w-5 h-5 mr-2 text-yellow-400" />
-              Market Opportunities
-            </h3>
-            <div className="space-y-4">
-              <div className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
-                <div className="flex items-start justify-between">
-                  <div className="flex-1">
-                    <p className="font-medium text-sm text-yellow-300">Caleb Williams Prizm RC</p>
-                    <p className="text-xs text-gray-400 mt-1">Below average price</p>
-                  </div>
-                  <span className="px-2 py-1 rounded text-xs font-semibold bg-green-500/20 text-green-300">
-                    Buy
-                  </span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* Footer */}
-        <div className="mt-8 text-center text-gray-500 text-sm">
-          <p>Powered by N8N Workflows • Live data updates every 2 minutes</p>
-          {/* Investment Intelligence Section */}
+        {/* Investment Intelligence Section */}
         <div className="grid grid-cols-1 xl:grid-cols-3 gap-6 mb-8">
           {/* Investment Opportunities */}
           <div className="bg-gradient-to-br from-green-500/10 to-emerald-500/10 rounded-xl p-6 border border-green-500/30">
@@ -331,6 +218,79 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Live Data Sections */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+          {/* Live Alerts from N8N */}
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
+            <h3 className="text-xl font-semibold mb-4 flex items-center">
+              <AlertCircle className="w-5 h-5 mr-2 text-yellow-400" />
+              Live N8N Alerts
+            </h3>
+            <div className="space-y-4">
+              {cardData.alerts && cardData.alerts.length > 0 ? (
+                cardData.alerts.slice(0, 5).map((alert, index) => (
+                  <div key={index} className="p-4 bg-yellow-500/10 border border-yellow-500/30 rounded-lg">
+                    <div className="flex items-start justify-between">
+                      <div className="flex-1">
+                        <p className="font-medium text-sm text-yellow-300">{alert.message}</p>
+                        <p className="text-xs text-gray-400 mt-1">Player: {alert.player}</p>
+                        <p className="text-xs text-gray-400">Priority: {alert.priority}</p>
+                      </div>
+                      <span className={`px-2 py-1 rounded text-xs font-semibold ${
+                        alert.priority === 'HIGH' ? 'bg-red-500/20 text-red-300' :
+                        alert.priority === 'MEDIUM' ? 'bg-orange-500/20 text-orange-300' :
+                        'bg-green-500/20 text-green-300'
+                      }`}>
+                        {alert.action}
+                      </span>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="p-4 bg-gray-700/30 rounded-lg">
+                  <p className="text-gray-400">No active alerts</p>
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* Top Players from N8N */}
+          <div className="bg-gray-800/50 backdrop-blur-sm rounded-xl p-6 border border-gray-700/50">
+            <h3 className="text-xl font-semibold mb-4 flex items-center">
+              <TrendingUp className="w-5 h-5 mr-2 text-green-400" />
+              Your PC Players
+            </h3>
+            <div className="space-y-4">
+              {cardData.topPlayers && cardData.topPlayers.length > 0 ? (
+                cardData.topPlayers.map(([player, count], index) => (
+                  <div key={index} className="flex items-center justify-between p-3 bg-gray-700/30 rounded-lg">
+                    <div className="flex-1">
+                      <p className="font-medium text-sm">{player}</p>
+                      <p className="text-xs text-gray-400">
+                        {player === 'Jayden Daniels' || player === 'Terry McLaurin' ? '🏈 Redskins' :
+                         player === 'Sean Taylor' ? '🏈 Redskins Legend' :
+                         player === 'Cal Ripken Jr' ? '⚾ Orioles Legend' :
+                         '⚾ Orioles'}
+                      </p>
+                    </div>
+                    <div className="flex items-center text-green-400">
+                      <span className="font-semibold">{count} cards</span>
+                    </div>
+                  </div>
+                ))
+              ) : (
+                <div className="p-4 bg-gray-700/30 rounded-lg">
+                  <p className="text-gray-400">No player data available</p>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="mt-8 text-center text-gray-500 text-sm">
+          <p>Powered by N8N Workflows • Redskins & Orioles PC Intelligence • Live updates every 2 minutes</p>
         </div>
       </div>
     </div>
