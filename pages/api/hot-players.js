@@ -1,4 +1,3 @@
-// For Pages Router (/pages/api/hot-players.js):
 let hotPlayersData = { hotPlayers: [], lastUpdated: new Date().toISOString() };
 
 export default function handler(req, res) {
