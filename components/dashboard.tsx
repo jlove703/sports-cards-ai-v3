@@ -9,7 +9,7 @@ export default function Dashboard() {
   // Function to get hot players data
   const loadHotPlayers = async () => {
     try {
-      const response = await fetch('/api/hot-players');
+      const response = await fetch('https://sports-cards-ai-v3-h6a9i4s1a-jasons-projects-c96d6da4.vercel.app/api/hot-players');
       const data = await response.json();
       setHotPlayers(data.hotPlayers || []);
       setLastUpdated(data.lastUpdated);
